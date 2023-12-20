@@ -9,8 +9,13 @@ const TodoListItem = ({ todo }: TodoListItemType): JSX.Element => {
     if (!handleCheck) return <p>Error</p>;
 
     return (
-        <section className="flex gap-2 bg-background-accent rounded p-4">
+        <section
+            className={`flex gap-2 bg-background-accent rounded p-4 ${
+                todo.checked ? "opacity-50" : ""
+            }`}
+        >
             <input
+                className="appearance-none w-5 h-5 my-auto rounded-full border-2 border-primary bg-background checked:bg-primary"
                 onChange={() => handleCheck(todo.id)}
                 type="checkbox"
                 checked={todo.checked}

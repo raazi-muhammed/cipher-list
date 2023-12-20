@@ -38,13 +38,17 @@ const AddToDo = ({
 
     return (
         <form onSubmit={handleAddTodo}>
-            <input
-                className="text-background"
-                value={todoInput}
-                onChange={(e) => setTodoInput(e.target.value)}
-                type="text"
-            />
-            <button>Add</button>
+            <div className="flex gap-4 justify-center">
+                <input
+                    className="text-foreground bg-background-accent p-2 rounded-lg"
+                    value={todoInput}
+                    onChange={(e) => setTodoInput(e.target.value)}
+                    type="text"
+                />
+                <button className="bg-primary rounded px-4 p-2 outline-none border-0 focus:border-primary focus:outline-0">
+                    Add
+                </button>
+            </div>
         </form>
     );
 };

@@ -9,16 +9,18 @@ const HomePage = (): JSX.Element => {
     if (!toDoList) return <p>Error</p>;
 
     return (
-        <main>
+        <main className="p-4 max-w-screen-md mx-auto">
             <header>
-                <h1>Todo list</h1>
+                <h1 className="text-4xl text-start font-bold mb-2">
+                    Todo list
+                </h1>
             </header>
             <section className="grid gap-2">
                 {toDoList.map((todo, i) => (
                     <TodoListItem key={i} todo={todo} />
                 ))}
             </section>
-            <footer>
+            <footer className="fixed bottom-4 right-4">
                 <AddToDo setRefresh={setRefresh} />
             </footer>
         </main>

@@ -10,6 +10,13 @@ module.exports = {
                 "foreground-accent": "#585858",
                 primary: "#0E8CE9",
             },
+            borderRadius: {
+                none: "0",
+                sm: ".25rem",
+                m: ".5rem",
+                DEFAULT: "1rem",
+                full: "9999px",
+            },
         },
     },
     plugins: [],
