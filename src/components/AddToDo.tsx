@@ -9,8 +9,9 @@ const AddToDo = ({
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const [todoInput, setTodoInput] = useState<string>("");
-    const { toDoList, setToDoList } = useContext(DataContext);
-    if (!toDoList || !setToDoList) return <p>Error</p>;
+    const { toDoList, setToDoList, saveToLocalStorage } =
+        useContext(DataContext);
+    if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
 
     const addTodoItem = (todoName: string) => {
         const toDoToAdd: TodoItem = {
@@ -34,6 +35,7 @@ const AddToDo = ({
 
         setTodoInput("");
         setRefresh((curr) => !curr);
+        saveToLocalStorage();
     };
 
     return (
