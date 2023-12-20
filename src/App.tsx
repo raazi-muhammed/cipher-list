@@ -1,10 +1,13 @@
-import React from "react";
 import "./App.css";
+import HomePage from "./pages/HomePage";
+import { DataProvider } from "./context/DataContext";
 
 function App() {
     return (
-        <div className="App bg-background min-h-screen">
-            <p className="text-primary">Welcome to Cipher list</p>
+        <div className="App bg-background text-foreground min-h-screen">
+            <DataProvider>
+                <HomePage />
+            </DataProvider>
         </div>
     );
 }
