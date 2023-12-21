@@ -1,16 +1,16 @@
 import React, { useContext, useState } from "react";
-import Input from "./ui/Input";
 import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import { TodoItem } from "../types/todo";
-import Button from "./ui/button";
+import { Input, Button, ModalFooter } from "@nextui-org/react";
 import toast from "react-hot-toast";
 
 type ToDoFormType = {
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+    onClose: () => void;
 };
-const ToDoForm = ({ setShowForm, setRefresh }: ToDoFormType) => {
+const ToDoForm = ({ setShowForm, setRefresh, onClose }: ToDoFormType) => {
     const [name, setName] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const { toDoList, setToDoList, saveToLocalStorage } =
@@ -42,38 +42,39 @@ const ToDoForm = ({ setShowForm, setRefresh }: ToDoFormType) => {
         saveToLocalStorage();
     };
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="bg-background space-y-4 rounded p-4 py-8 fixed top-0 bottom-0 left-0 right-0 mx-auto my-auto max-w-md h-fit"
-        >
-            <p className="text-lg font-bold">Add an Todo</p>
-            <div className="grid gap-2 text-start">
-                <label htmlFor="">Name</label>
+        <>
+            <form className="space-y-12" onSubmit={handleSubmit}>
                 <Input
-                    type={"text"}
+                    type="text"
+                    label="Todo"
+                    placeholder="eg: Water"
+                    labelPlacement="outside"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-            </div>
-            <div className="grid gap-2 text-start">
-                <label htmlFor="">Date nad TIme</label>
+
                 <Input
-                    type={"datetime-local"}
+                    type="datetime-local"
+                    label="Date"
+                    placeholder="eg: Water"
+                    labelPlacement="outside"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                 />
-            </div>
-            <section className="flex justify-between">
-                <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setShowForm(false)}
-                >
+            </form>
+            <ModalFooter className="p-0 py-4">
+                <Button color="danger" variant="light" onPress={onClose}>
                     Close
                 </Button>
-                <Button>Add Item</Button>
-            </section>
-        </form>
+                <Button
+                    onClick={handleSubmit}
+                    color="primary"
+                    onPress={onClose}
+                >
+                    Add
+                </Button>
+            </ModalFooter>
+        </>
     );
 };
 

@@ -2,16 +2,23 @@ import { TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import moment from "moment";
-import Button from "./ui/button";
+//import Button from "./ui/button";
 import toast from "react-hot-toast";
+import { Checkbox } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
+import {
+    Dropdown,
+    DropdownTrigger,
+    DropdownMenu,
+    DropdownItem,
+    Button,
+} from "@nextui-org/react";
 
 type TodoListItemType = {
     todo: TodoItem;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
-    const [showMenu, setShowMenu] = useState<boolean>(false);
-
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
 
@@ -27,7 +34,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
         let updatedTodo = toDoList.filter((todo) => {
             if (todo.id !== todoId) return todo;
         });
-        setShowMenu(false);
+
         updateTodoList(updatedTodo);
         toast.success("item removed");
     };
@@ -38,50 +45,42 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
             if (todo.id === todoId) todo.checked = !todo.checked;
             return todo;
         });
-        setShowMenu(false);
+
         updateTodoList(toDoList);
     };
 
     return (
-        <section
-            className={`flex gap-4 bg-background-accent rounded p-4 relative ${
-                todo.checked ? "opacity-50" : ""
-            }`}
-        >
-            <input
-                className="appearance-none w-5 h-5 my-auto rounded-full border-2 border-primary bg-background checked:bg-primary"
-                onChange={handleCheck}
-                type="checkbox"
-                checked={todo.checked}
-                id={todo.id}
-            />
-            <section className="text-start my-auto">
-                <label htmlFor={todo.id}>{todo.name}</label>
-                {todo?.doWhen ? (
-                    <p className="text-xs opacity-60">
-                        {moment(todo.doWhen).endOf("day").fromNow()}
-                    </p>
-                ) : null}
-            </section>
+        <Card>
+            <CardBody className="flex-row justify-between">
+                <Checkbox onChange={handleCheck} defaultSelected={todo.checked}>
+                    <p>{todo.name}</p>
+                    {todo?.doWhen ? (
+                        <p className="text-small opacity-60">
+                            {moment(todo.doWhen).endOf("day").fromNow()}
+                        </p>
+                    ) : null}
+                </Checkbox>
 
-            <button
-                className="ms-auto me-0"
-                onClick={() => setShowMenu((curr) => !curr)}
-            >
-                ...
-            </button>
-
-            {showMenu ? (
-                <section className="bg-background rounded grid gap-2 p-2 absolute top-0 right-16 z-50 w-32">
-                    <Button variant="muted" onClick={handleDelete}>
-                        Delete
-                    </Button>
-                    <Button variant="muted" onClick={handleCheck}>
-                        Mark Done
-                    </Button>
-                </section>
-            ) : null}
-        </section>
+                <Dropdown className="dark text-foreground">
+                    <DropdownTrigger>
+                        <Button variant="flat">Options</Button>
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="Static Actions">
+                        <DropdownItem onClick={handleCheck} key="mark-done">
+                            Mark as done
+                        </DropdownItem>
+                        <DropdownItem
+                            onClick={handleDelete}
+                            key="delete"
+                            className="text-danger"
+                            color="danger"
+                        >
+                            Delete file
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </CardBody>
+        </Card>
     );
 };
 

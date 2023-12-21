@@ -3,14 +3,24 @@ import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import { TodoItem } from "../types/todo";
 import ToDoForm from "./ToDoForm";
-import Input from "./ui/Input";
-import Button from "./ui/button";
+import { Input, Button, ButtonGroup } from "@nextui-org/react";
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    useDisclosure,
+} from "@nextui-org/react";
+
 import toast from "react-hot-toast";
 
 type AddToDoType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const AddToDo = ({ setRefresh }: AddToDoType) => {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
     const [todoInput, setTodoInput] = useState<string>("");
     const [showForm, setShowForm] = useState<boolean>(false);
     const { toDoList, setToDoList, saveToLocalStorage } =
@@ -47,18 +57,43 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
     return (
         <>
             <form onSubmit={handleAddTodo}>
-                <div className="flex gap-4 justify-center">
+                <div className="flex gap-4 justify-center p-8 align-center">
                     <Input
-                        value={todoInput}
                         onChange={(e) => setTodoInput(e.target.value)}
+                        value={todoInput}
                         type="text"
+                        label="Todo"
                     />
-                    <Button>Add</Button>
+                    <ButtonGroup color="primary" size="lg" className="my-auto">
+                        <Button type="submit">Add</Button>
+                        <Button onPress={onOpen}>Add modal</Button>
+                    </ButtonGroup>
                 </div>
             </form>
-            {showForm ? (
-                <ToDoForm setRefresh={setRefresh} setShowForm={setShowForm} />
-            ) : null}
+
+            <Modal
+                className="dark text-foreground"
+                backdrop="blur"
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="dark flex flex-col gap-1">
+                                Add an Item
+                            </ModalHeader>
+                            <ModalBody>
+                                <ToDoForm
+                                    setRefresh={setRefresh}
+                                    setShowForm={setShowForm}
+                                    onClose={onClose}
+                                />
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </>
     );
 };
