@@ -3,6 +3,8 @@ import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import { TodoItem } from "../types/todo";
 import ToDoForm from "./ToDoForm";
+import Input from "./ui/Input";
+import Button from "./ui/button";
 
 type AddToDoType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,15 +46,12 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         <>
             <form onSubmit={handleAddTodo}>
                 <div className="flex gap-4 justify-center">
-                    <input
-                        className="text-foreground bg-background-accent p-2 rounded-lg"
+                    <Input
                         value={todoInput}
                         onChange={(e) => setTodoInput(e.target.value)}
                         type="text"
                     />
-                    <button className="bg-primary rounded px-4 p-2 outline-none border-0 focus:border-primary focus:outline-0">
-                        Add
-                    </button>
+                    <Button>Add</Button>
                 </div>
             </form>
             {showForm ? (

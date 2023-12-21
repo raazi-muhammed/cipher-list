@@ -2,6 +2,7 @@ import { TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import moment from "moment";
+import Button from "./ui/button";
 
 type TodoListItemType = {
     todo: TodoItem;
@@ -70,18 +71,12 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
 
             {showMenu ? (
                 <section className="bg-background rounded grid gap-2 p-2 absolute top-0 right-16 z-50 w-32">
-                    <button
-                        className="bg-background-accent rounded p-1"
-                        onClick={handleDelete}
-                    >
-                        delete
-                    </button>
-                    <button
-                        className="bg-background-accent rounded p-1"
-                        onClick={handleCheck}
-                    >
-                        mark done
-                    </button>
+                    <Button variant="muted" onClick={handleDelete}>
+                        Delete
+                    </Button>
+                    <Button variant="muted" onClick={handleCheck}>
+                        Mark Done
+                    </Button>
                 </section>
             ) : null}
         </section>

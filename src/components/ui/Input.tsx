@@ -1,18 +1,28 @@
-import React from "react";
+import { VariantProps, cva } from "class-variance-authority";
+import { ButtonHTMLAttributes, InputHTMLAttributes } from "react";
+import { cn } from "../../utils/className";
 
-type InputType = {
-    type: string;
-    value: any;
-    setValue: React.Dispatch<React.SetStateAction<any>>;
-};
+export const inputVariants = cva("p-2 rounded px-4", {
+    variants: {
+        variant: {
+            default: "text-foreground bg-background-accent",
+            outline: "bg-background",
+        },
+    },
+    defaultVariants: {
+        variant: "default",
+    },
+});
 
-const Input = ({ type, value, setValue }: InputType) => {
+interface InputPropType
+    extends InputHTMLAttributes<HTMLInputElement>,
+        VariantProps<typeof inputVariants> {}
+
+const Input = ({ className, variant, ...props }: InputPropType) => {
     return (
         <input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            type={type}
-            className="text-foreground bg-background-accent p-2 rounded-lg"
+            className={cn(inputVariants({ variant, className }))}
+            {...props}
         />
     );
 };
