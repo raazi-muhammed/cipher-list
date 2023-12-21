@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import CryptoJS from "crypto-js";
 
 function getSavedValues(key: string, initialData: any) {
-    const data = window.localStorage.getItem(key);
-    return data ? JSON.parse(data) : initialData;
+    const encryptedData = window.localStorage.getItem(key);
+    if (!encryptedData) return initialData;
+
+    var bytes = CryptoJS.AES.decrypt(encryptedData, "secret key 123");
+    const data = bytes.toString(CryptoJS.enc.Utf8);
+
+    return JSON.parse(data);
 }
 
 export default function useLocalStorage<T>(
@@ -12,7 +18,12 @@ export default function useLocalStorage<T>(
     const [data, setData] = useState(() => getSavedValues(key, initialData));
 
     const saveToLocalStorage = () => {
-        window.localStorage.setItem(key, JSON.stringify(data));
+        var encryptedData = CryptoJS.AES.encrypt(
+            JSON.stringify(data),
+            "secret key 123"
+        ).toString();
+
+        window.localStorage.setItem(key, encryptedData);
     };
 
     return [data, setData, saveToLocalStorage];
