@@ -3,13 +3,12 @@ import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import { TodoItem } from "../types/todo";
 import ToDoForm from "./ToDoForm";
-import { Input, Button, ButtonGroup } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import {
     Modal,
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalFooter,
     useDisclosure,
 } from "@nextui-org/react";
 
@@ -20,9 +19,8 @@ type AddToDoType = {
 };
 const AddToDo = ({ setRefresh }: AddToDoType) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
     const [todoInput, setTodoInput] = useState<string>("");
-    const [showForm, setShowForm] = useState<boolean>(false);
+
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
     if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
@@ -43,7 +41,7 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         e.preventDefault();
 
         if (!todoInput) {
-            setShowForm(true);
+            toast.error("no value");
             return;
         }
 
@@ -64,10 +62,14 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
                         type="text"
                         label="Todo"
                     />
-                    <ButtonGroup color="primary" size="lg" className="my-auto">
-                        <Button type="submit">Add</Button>
-                        <Button onPress={onOpen}>Add modal</Button>
-                    </ButtonGroup>
+                    <Button
+                        color="primary"
+                        size="lg"
+                        className="my-auto"
+                        onPress={onOpen}
+                    >
+                        Add
+                    </Button>
                 </div>
             </form>
 
@@ -86,7 +88,6 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
                             <ModalBody>
                                 <ToDoForm
                                     setRefresh={setRefresh}
-                                    setShowForm={setShowForm}
                                     onClose={onClose}
                                 />
                             </ModalBody>

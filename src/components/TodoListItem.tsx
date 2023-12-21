@@ -1,8 +1,7 @@
 import { TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import moment from "moment";
-//import Button from "./ui/button";
 import toast from "react-hot-toast";
 import { Checkbox } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
@@ -31,9 +30,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     };
     const handleDelete = () => {
         const todoId = todo.id;
-        let updatedTodo = toDoList.filter((todo) => {
-            if (todo.id !== todoId) return todo;
-        });
+        let updatedTodo = toDoList.filter((todo) => todo.id !== todoId);
 
         updateTodoList(updatedTodo);
         toast.success("item removed");
@@ -63,7 +60,15 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
 
                 <Dropdown className="dark text-foreground">
                     <DropdownTrigger>
-                        <Button variant="flat">Options</Button>
+                        <Button
+                            className="my-auto"
+                            size="sm"
+                            radius="full"
+                            isIconOnly
+                            variant="flat"
+                        >
+                            <img src="/icons/three-dot.svg" alt="" />
+                        </Button>
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Static Actions">
                         <DropdownItem onClick={handleCheck} key="mark-done">

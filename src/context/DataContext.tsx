@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import { TodoItem } from "../types/todo";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -14,7 +14,6 @@ export const DataProvider = ({ children }: any) => {
     const [toDoList, setToDoList, saveToLocalStorage] = useLocalStorage<
         TodoItem[]
     >("__cipher-list-data", []);
-    const [refresh, setRefresh] = useState(true);
 
     return (
         <DataContext.Provider
