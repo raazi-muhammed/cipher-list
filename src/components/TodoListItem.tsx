@@ -3,6 +3,7 @@ import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import moment from "moment";
 import Button from "./ui/button";
+import toast from "react-hot-toast";
 
 type TodoListItemType = {
     todo: TodoItem;
@@ -28,6 +29,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
         });
         setShowMenu(false);
         updateTodoList(updatedTodo);
+        toast.success("item removed");
     };
 
     const handleCheck = () => {

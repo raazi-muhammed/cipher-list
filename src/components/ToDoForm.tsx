@@ -4,6 +4,7 @@ import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import { TodoItem } from "../types/todo";
 import Button from "./ui/button";
+import toast from "react-hot-toast";
 
 type ToDoFormType = {
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,13 +27,14 @@ const ToDoForm = ({ setShowForm, setRefresh }: ToDoFormType) => {
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
+        toast.success("added");
     };
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         if (name) addTodoItem(name, new Date(date));
-
+        else toast.error("cannot add");
         setRefresh((curr) => !curr);
         setName("");
         setDate("");

@@ -1,6 +1,7 @@
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import { DataProvider } from "./context/DataContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
     return (
@@ -8,6 +9,25 @@ function App() {
             <DataProvider>
                 <HomePage />
             </DataProvider>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    success: {
+                        style: {
+                            borderRadius: "var(--radius)",
+                            backgroundColor: "hsl(var(--card))",
+                            color: "hsl(var(--card-foreground))",
+                        },
+                    },
+                    error: {
+                        style: {
+                            borderRadius: "var(--radius)",
+                            backgroundColor: "hsl(var(--card))",
+                            color: "hsl(var(--card-foreground))",
+                        },
+                    },
+                }}
+            />
         </div>
     );
 }

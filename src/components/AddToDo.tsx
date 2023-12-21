@@ -5,6 +5,7 @@ import { TodoItem } from "../types/todo";
 import ToDoForm from "./ToDoForm";
 import Input from "./ui/Input";
 import Button from "./ui/button";
+import toast from "react-hot-toast";
 
 type AddToDoType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
+        toast.success("added");
     };
 
     const handleAddTodo = (e: React.SyntheticEvent) => {

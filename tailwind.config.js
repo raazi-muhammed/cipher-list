@@ -9,6 +9,7 @@ module.exports = {
                 foreground: "#FFFFFF",
                 "foreground-accent": "#585858",
                 primary: "#0E8CE9",
+                "primary-accent": "#41A8F4",
             },
             borderRadius: {
                 none: "0",

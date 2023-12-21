@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import { ButtonHTMLAttributes, InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import { cn } from "../../utils/className";
 
 export const inputVariants = cva("p-2 rounded px-4", {
