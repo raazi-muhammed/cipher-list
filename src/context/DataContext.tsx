@@ -16,19 +16,9 @@ export const DataProvider = ({ children }: any) => {
     >("__cipher-list-data", []);
     const [refresh, setRefresh] = useState(true);
 
-    const handleCheck = (todoId: string) => {
-        toDoList.map((todo) => {
-            if (todo.id === todoId) todo.checked = !todo.checked;
-            return todo;
-        });
-        setToDoList(toDoList);
-        setRefresh(!refresh);
-        saveToLocalStorage();
-    };
-
     return (
         <DataContext.Provider
-            value={{ toDoList, handleCheck, saveToLocalStorage, setToDoList }}
+            value={{ toDoList, saveToLocalStorage, setToDoList }}
         >
             {children}
         </DataContext.Provider>

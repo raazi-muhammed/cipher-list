@@ -1,4 +1,5 @@
 import AddToDo from "../components/AddToDo";
+import ToDoForm from "../components/ToDoForm";
 import TodoListItem from "../components/TodoListItem";
 import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
@@ -15,9 +16,9 @@ const HomePage = (): JSX.Element => {
                     Todo list
                 </h1>
             </header>
-            <section className="grid gap-2">
+            <section className="grid gap-2 mb-24">
                 {toDoList.map((todo, i) => (
-                    <TodoListItem key={i} todo={todo} />
+                    <TodoListItem setRefresh={setRefresh} key={i} todo={todo} />
                 ))}
             </section>
             <footer className="fixed bottom-4 right-4">
