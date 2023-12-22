@@ -1,18 +1,15 @@
 import AddToDo from "../components/AddToDo";
-import TodoListItem from "../components/TodoListItem";
 import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import { Button } from "@nextui-org/react";
-import {
-    Dropdown,
-    DropdownTrigger,
-    DropdownMenu,
-    DropdownItem,
-} from "@nextui-org/react";
+import { Switch } from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import toast from "react-hot-toast";
+import TodoItemsList from "../components/TodoItemsList";
 
 const HomePage = (): JSX.Element => {
     const [refresh, setRefresh] = useState<boolean>(false);
+    const [showCompleted, setShowCompleted] = useState<boolean>(true);
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
     if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
@@ -29,8 +26,11 @@ const HomePage = (): JSX.Element => {
                 <h1 className="text-4xl text-start font-bold mb-6">
                     Todo list
                 </h1>
-                <Dropdown className="dark text-foreground">
-                    <DropdownTrigger>
+                <Popover
+                    className="dark text-foreground"
+                    placement="bottom-end"
+                >
+                    <PopoverTrigger>
                         <Button
                             className="my-auto"
                             size="sm"
@@ -40,34 +40,38 @@ const HomePage = (): JSX.Element => {
                         >
                             <img src="/icons/three-dot.svg" alt="" />
                         </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Static Actions">
-                        <DropdownItem key="mark-done">Settings</DropdownItem>
-                        <DropdownItem key="mark-done">
-                            Show Completed
-                        </DropdownItem>
-                        <DropdownItem
-                            onClick={handleClearAll}
-                            key="delete"
-                            className="text-danger"
+                    </PopoverTrigger>
+                    <PopoverContent className="p-2">
+                        <Button
                             color="danger"
+                            variant="light"
+                            className="w-full"
+                            onClick={handleClearAll}
                         >
-                            Clear All
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
+                            <p className="w-full text-start">Clear All</p>
+                        </Button>
+
+                        <div className="flex align-middle h-12 px-4 hover:bg-default-100 rounded-xl ">
+                            <p className="my-auto me-4">Show Completed</p>
+                            <Switch
+                                size="sm"
+                                onChange={(e) =>
+                                    setShowCompleted(e.target.checked)
+                                }
+                                defaultSelected={showCompleted}
+                                aria-label="show completed"
+                            ></Switch>
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </header>
-            <section className="flex flex-col gap-4 mb-28">
-                {toDoList?.length <= 0 ? (
-                    <p className="opacity-50 mt-10 mx-auto">No items</p>
-                ) : null}
-                {toDoList.map((todo, i) => (
-                    <TodoListItem setRefresh={setRefresh} key={i} todo={todo} />
-                ))}
-            </section>
-            <footer className="fixed bottom-0 right-0 z-50">
+            <TodoItemsList
+                setRefresh={setRefresh}
+                showCompleted={showCompleted}
+            />
+            <section className="fixed bottom-0 right-0 z-50">
                 <AddToDo setRefresh={setRefresh} />
-            </footer>
+            </section>
         </main>
     );
 };

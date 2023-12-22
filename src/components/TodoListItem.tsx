@@ -1,4 +1,4 @@
-import { TodoItem } from "../types/todo";
+import { PriorityTypes, TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import moment from "moment";
@@ -51,11 +51,21 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
             <CardBody className="flex-row justify-between">
                 <Checkbox onChange={handleCheck} defaultSelected={todo.checked}>
                     <p>{todo.name}</p>
-                    {todo?.doWhen ? (
-                        <p className="text-small opacity-60">
-                            {moment(todo.doWhen).endOf("day").fromNow()}
-                        </p>
-                    ) : null}
+                    <div className="flex text-small opacity-60 capitalize">
+                        {todo?.doWhen ? (
+                            <p>{moment(todo.doWhen).endOf("day").fromNow()}</p>
+                        ) : null}
+                        {todo?.doWhen && todo?.priority ? (
+                            <p className="me-2">, </p>
+                        ) : null}
+                        {todo?.priority ? (
+                            <p>
+                                {`${PriorityTypes[
+                                    todo.priority
+                                ].toLowerCase()} priority`}
+                            </p>
+                        ) : null}
+                    </div>
                 </Checkbox>
 
                 <Dropdown className="dark text-foreground">

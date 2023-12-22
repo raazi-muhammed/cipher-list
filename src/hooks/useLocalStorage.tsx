@@ -5,7 +5,7 @@ function getSavedValues(key: string, initialData: any) {
     const encryptedData = window.localStorage.getItem(key);
     if (!encryptedData) return initialData;
 
-    var bytes = CryptoJS.AES.decrypt(encryptedData, "secret key 123");
+    const bytes = CryptoJS.AES.decrypt(encryptedData, "secret key 123");
     const data = bytes.toString(CryptoJS.enc.Utf8);
 
     return JSON.parse(data);
@@ -18,7 +18,7 @@ export default function useLocalStorage<T>(
     const [data, setData] = useState(() => getSavedValues(key, initialData));
 
     const saveToLocalStorage = () => {
-        var encryptedData = CryptoJS.AES.encrypt(
+        const encryptedData = CryptoJS.AES.encrypt(
             JSON.stringify(data),
             "secret key 123"
         ).toString();
