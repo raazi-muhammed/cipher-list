@@ -8,6 +8,7 @@ export type TodoItem = {
     id: string;
     name: string;
     checked: boolean;
-    priority?: PriorityTypes;
+    priority: PriorityTypes;
     doWhen: string | null;
+    createdAt: string;
 };

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
-import { TodoItem } from "../types/todo";
-import ToDoForm from "./ToDoForm";
+import { PriorityTypes, TodoItem } from "../types/todo";
+import AddToDoForm from "./AddToDoForm";
 import { Input, Button } from "@nextui-org/react";
 import {
     Modal,
@@ -29,8 +29,10 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         const toDoToAdd: TodoItem = {
             id: uuidv4(),
             name: todoName,
+            priority: PriorityTypes.NONE,
             checked: false,
             doWhen: null,
+            createdAt: new Date().toString(),
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
@@ -86,7 +88,7 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
                                 Add an Item
                             </ModalHeader>
                             <ModalBody>
-                                <ToDoForm
+                                <AddToDoForm
                                     setRefresh={setRefresh}
                                     onClose={onClose}
                                 />

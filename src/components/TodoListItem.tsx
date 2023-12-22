@@ -5,6 +5,7 @@ import moment from "moment";
 import toast from "react-hot-toast";
 import { Checkbox } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
+import EditToDoForm from "./EditTodoForm";
 import {
     Dropdown,
     DropdownTrigger,
@@ -12,12 +13,20 @@ import {
     DropdownItem,
     Button,
 } from "@nextui-org/react";
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    useDisclosure,
+} from "@nextui-org/react";
 
 type TodoListItemType = {
     todo: TodoItem;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
 
@@ -38,6 +47,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
 
     const handleCheck = () => {
         const todoId = todo.id;
+
         toDoList.map((todo) => {
             if (todo.id === todoId) todo.checked = !todo.checked;
             return todo;
@@ -80,9 +90,12 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                             <img src="/icons/three-dot.svg" alt="" />
                         </Button>
                     </DropdownTrigger>
-                    <DropdownMenu aria-label="Static Actions">
+                    <DropdownMenu aria-label="Todo Options">
                         <DropdownItem onClick={handleCheck} key="mark-done">
                             Mark as done
+                        </DropdownItem>
+                        <DropdownItem key="edit" onPress={onOpen}>
+                            Edit
                         </DropdownItem>
                         <DropdownItem
                             onClick={handleDelete}
@@ -95,6 +108,29 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                     </DropdownMenu>
                 </Dropdown>
             </CardBody>
+            <Modal
+                className="dark text-foreground"
+                backdrop="blur"
+                isOpen={isOpen}
+                onOpenChange={onOpenChange}
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="dark flex flex-col gap-1">
+                                Add an Item
+                            </ModalHeader>
+                            <ModalBody>
+                                <EditToDoForm
+                                    todo={todo}
+                                    setRefresh={setRefresh}
+                                    onClose={onClose}
+                                />
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </Card>
     );
 };

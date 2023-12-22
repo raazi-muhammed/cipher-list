@@ -10,7 +10,7 @@ type ToDoFormType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
     onClose: () => void;
 };
-const ToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
+const AddToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
     const [name, setName] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [priority, setPriority] = useState<PriorityTypes>(PriorityTypes.NONE);
@@ -30,6 +30,7 @@ const ToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
             checked: false,
             doWhen: todoDate,
             priority: todoPriority,
+            createdAt: new Date().toString(),
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
@@ -118,4 +119,4 @@ const ToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
     );
 };
 
-export default ToDoForm;
+export default AddToDoForm;
