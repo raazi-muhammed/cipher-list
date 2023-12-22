@@ -16,12 +16,12 @@ const TodoItemsList = ({ showCompleted, setRefresh }: TodoItemsListType) => {
             {toDoList?.length <= 0 ? (
                 <p className="opacity-50 mt-10 mx-auto">No items</p>
             ) : null}
-            {toDoList.map((todo, i) => (
+            {toDoList.map((todo) => (
                 <>
                     {showCompleted ? (
                         <TodoListItem
                             setRefresh={setRefresh}
-                            key={i}
+                            key={todo.id}
                             todo={todo}
                         />
                     ) : (
@@ -29,7 +29,7 @@ const TodoItemsList = ({ showCompleted, setRefresh }: TodoItemsListType) => {
                             {!todo.checked ? (
                                 <TodoListItem
                                     setRefresh={setRefresh}
-                                    key={i}
+                                    key={todo.id}
                                     todo={todo}
                                 />
                             ) : null}

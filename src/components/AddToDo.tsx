@@ -62,7 +62,7 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
                         onChange={(e) => setTodoInput(e.target.value)}
                         value={todoInput}
                         type="text"
-                        label="Todo"
+                        label="Add Todo"
                     />
                     <Button
                         color="primary"

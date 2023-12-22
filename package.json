@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/crypto-js": "^4.2.1",
     "@types/uuid": "^9.0.7",
     "tailwindcss": "^3.4.0"

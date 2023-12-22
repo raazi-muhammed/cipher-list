@@ -67,6 +67,7 @@ const AddToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
                 />
                 <Select
                     value={priority}
+                    defaultSelectedKeys={[priority.toString()]}
                     onChange={(e) => {
                         setPriority(
                             Number(e.target.value) as

@@ -77,6 +77,7 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
                 />
                 <Select
                     value={priority}
+                    defaultSelectedKeys={[priority.toString()]}
                     onChange={(e) => {
                         setPriority(
                             Number(e.target.value) as
@@ -84,7 +85,6 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
                                 | PriorityTypes.NONE
                         );
                     }}
-                    defaultSelectedKeys={[priority.toString()]}
                     label="Priority"
                 >
                     <SelectItem
