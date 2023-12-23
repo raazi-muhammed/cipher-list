@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/react";
 
 import toast from "react-hot-toast";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
 
 type AddToDoType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,14 +37,14 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
-        toast.success("Todo Added");
+        toast.success(SUCCESS_MESSAGES.TODO_ADDED);
     };
 
     const handleAddTodo = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         if (!todoInput) {
-            toast.error("No Value");
+            toast.error(ERROR_MESSAGES.TODO_INPUT_NO_VALUE);
             return;
         }
 

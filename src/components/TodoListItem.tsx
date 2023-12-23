@@ -1,7 +1,6 @@
 import { TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
-import moment from "moment";
 import toast from "react-hot-toast";
 import { Checkbox } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
@@ -20,7 +19,7 @@ import {
     ModalBody,
     useDisclosure,
 } from "@nextui-org/react";
-import ERROR_MESSAGES from "../utils/errorMessages";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
 import PriorityChip from "./PriorityChip";
 import DateChip from "./DateChip";
 import ChipSeparator from "./ChipSeparator";
@@ -48,7 +47,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
         let updatedTodo = toDoList.filter((todo) => todo.id !== todoId);
 
         updateTodoList(updatedTodo);
-        toast.success("item removed");
+        toast.success(SUCCESS_MESSAGES.TODO_REMOVED);
     };
 
     const handleCheck = () => {

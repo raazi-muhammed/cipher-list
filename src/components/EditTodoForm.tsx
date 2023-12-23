@@ -5,6 +5,7 @@ import { TodoItem, PriorityTypes } from "../types/todo";
 import { Input, Button, ModalFooter } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { Select, SelectItem } from "@nextui-org/react";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
 
 type ToDoFormType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +21,9 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
 
-    if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
+    if (!toDoList || !setToDoList || !saveToLocalStorage) {
+        return <p>{ERROR_MESSAGES.DATA_CONTEXT_LOADING}</p>;
+    }
 
     const updatedToDo = (
         todoName: string,
@@ -44,14 +47,14 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
         });
 
         setToDoList(updatedList);
-        toast.success("edited");
+        toast.success(SUCCESS_MESSAGES.TODO_EDITED);
     };
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         if (name) updatedToDo(name, date, priority);
-        else toast.error("cannot add");
+        else toast.error(ERROR_MESSAGES.TODO_CANNOT_EDIT);
         setRefresh((curr) => !curr);
         setName("");
         setDate("");

@@ -3,7 +3,7 @@ import { DataContext } from "../context/DataContext";
 import { useContext, useState } from "react";
 import TodoItemsList from "../components/TodoItemsList";
 import Settings from "../components/Settings";
-import ERROR_MESSAGES from "../utils/errorMessages";
+import { ERROR_MESSAGES } from "../utils/messages";
 
 const HomePage = (): JSX.Element => {
     const setRefresh = useState<boolean>(false)[1];

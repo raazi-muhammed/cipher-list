@@ -7,7 +7,7 @@ import { DataContext } from "../context/DataContext";
 import toast from "react-hot-toast";
 import { TodoItem } from "../types/todo";
 import { SortOptions } from "../types/viewTypes";
-import ERROR_MESSAGES from "../utils/errorMessages";
+import { ERROR_MESSAGES } from "../utils/messages";
 
 type SettingsType = {
     showCompleted: boolean;
