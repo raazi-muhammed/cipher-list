@@ -66,14 +66,29 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                             <p>{moment(todo.doWhen).endOf("day").fromNow()}</p>
                         ) : null}
                         {todo?.doWhen && todo?.priority ? (
-                            <p className="me-2">, </p>
+                            <p className="me-1">,</p>
                         ) : null}
                         {todo?.priority ? (
-                            <p>
-                                {`${PriorityTypes[
-                                    todo.priority
-                                ].toLowerCase()} priority`}
-                            </p>
+                            <>
+                                <span
+                                    className={`dot ${
+                                        todo.priority === PriorityTypes.HIGH
+                                            ? "bg-red-500"
+                                            : todo.priority ===
+                                              PriorityTypes.MEDIUM
+                                            ? "bg-orange-400"
+                                            : todo.priority ===
+                                              PriorityTypes.LOW
+                                            ? "bg-yellow-300"
+                                            : ""
+                                    }`}
+                                ></span>
+                                <p>
+                                    {`${PriorityTypes[
+                                        todo.priority
+                                    ].toLowerCase()} priority`}
+                                </p>
+                            </>
                         ) : null}
                     </div>
                 </Checkbox>

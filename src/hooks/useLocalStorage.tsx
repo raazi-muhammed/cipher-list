@@ -14,8 +14,12 @@ function getSavedValues(key: string, initialData: any) {
 export default function useLocalStorage<T>(
     key: string,
     initialData: T
-): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
+): [T, React.Dispatch<React.SetStateAction<T>>, () => void, () => void] {
     const [data, setData] = useState(() => getSavedValues(key, initialData));
+
+    const clearLocalStorage = () => {
+        window.localStorage.removeItem(key);
+    };
 
     const saveToLocalStorage = () => {
         const encryptedData = CryptoJS.AES.encrypt(
@@ -26,5 +30,5 @@ export default function useLocalStorage<T>(
         window.localStorage.setItem(key, encryptedData);
     };
 
-    return [data, setData, saveToLocalStorage];
+    return [data, setData, saveToLocalStorage, clearLocalStorage];
 }

@@ -5,3 +5,10 @@
 :root {
     background-color: black;
 }
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin-block: auto;
+    margin-inline: 0.25rem;
+}

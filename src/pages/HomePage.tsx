@@ -19,13 +19,14 @@ const HomePage = (): JSX.Element => {
     const [refresh, setRefresh] = useState<boolean>(false);
     const [showCompleted, setShowCompleted] = useState<boolean>(true);
     const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.CREATED_AT);
-    const { toDoList, setToDoList, saveToLocalStorage } =
+    const { toDoList, setToDoList, saveToLocalStorage, clearLocalStorage } =
         useContext(DataContext);
-    if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
+    if (!toDoList || !setToDoList || !saveToLocalStorage || !clearLocalStorage)
+        return <p>Error</p>;
 
     const handleClearAll = () => {
         setToDoList([]);
-        saveToLocalStorage();
+        clearLocalStorage();
         toast.success("cleared");
     };
 

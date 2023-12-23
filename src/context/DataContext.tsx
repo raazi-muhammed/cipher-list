@@ -7,17 +7,22 @@ type DataContextType = {
     setToDoList?: React.Dispatch<React.SetStateAction<TodoItem[]>>;
     handleCheck?: (todoId: string) => void;
     saveToLocalStorage?: () => void;
+    clearLocalStorage?: () => void;
 };
 export const DataContext = createContext<DataContextType>({});
 
 export const DataProvider = ({ children }: any) => {
-    const [toDoList, setToDoList, saveToLocalStorage] = useLocalStorage<
-        TodoItem[]
-    >("__cipher-list-data", []);
+    const [toDoList, setToDoList, saveToLocalStorage, clearLocalStorage] =
+        useLocalStorage<TodoItem[]>("__cipher-list-data", []);
 
     return (
         <DataContext.Provider
-            value={{ toDoList, saveToLocalStorage, setToDoList }}
+            value={{
+                toDoList,
+                saveToLocalStorage,
+                setToDoList,
+                clearLocalStorage,
+            }}
         >
             {children}
         </DataContext.Provider>
