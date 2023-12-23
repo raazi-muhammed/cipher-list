@@ -1,4 +1,4 @@
-import { PriorityTypes, TodoItem } from "../types/todo";
+import { TodoItem } from "../types/todo";
 import { DataContext } from "../context/DataContext";
 import { useContext } from "react";
 import moment from "moment";
@@ -20,23 +20,29 @@ import {
     ModalBody,
     useDisclosure,
 } from "@nextui-org/react";
+import ERROR_MESSAGES from "../utils/errorMessages";
+import PriorityChip from "./PriorityChip";
+import DateChip from "./DateChip";
+import ChipSeparator from "./ChipSeparator";
 
 type TodoListItemType = {
     todo: TodoItem;
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { toDoList, setToDoList, saveToLocalStorage } =
         useContext(DataContext);
-
-    if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
+    if (!toDoList || !setToDoList || !saveToLocalStorage)
+        return <p>{ERROR_MESSAGES.DATA_CONTEXT_LOADING}</p>;
 
     const updateTodoList = (values: TodoItem[]) => {
         setToDoList(values);
         setRefresh((curr) => !curr);
         saveToLocalStorage();
     };
+
     const handleDelete = () => {
         const todoId = todo.id;
         let updatedTodo = toDoList.filter((todo) => todo.id !== todoId);
@@ -48,12 +54,13 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     const handleCheck = () => {
         const todoId = todo.id;
 
-        toDoList.map((todo) => {
+        const updatedToDoList = structuredClone(toDoList) as TodoItem[];
+        updatedToDoList.map((todo) => {
             if (todo.id === todoId) todo.checked = !todo.checked;
             return todo;
         });
 
-        updateTodoList(toDoList);
+        updateTodoList(updatedToDoList);
     };
 
     return (
@@ -62,34 +69,12 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                 <Checkbox onChange={handleCheck} defaultSelected={todo.checked}>
                     <p>{todo.name}</p>
                     <div className="flex text-small opacity-60 capitalize">
-                        {todo?.doWhen ? (
-                            <p>{moment(todo.doWhen).endOf("day").fromNow()}</p>
-                        ) : null}
-                        {todo?.doWhen && todo?.priority ? (
-                            <p className="me-1">,</p>
-                        ) : null}
-                        {todo?.priority ? (
-                            <>
-                                <span
-                                    className={`dot ${
-                                        todo.priority === PriorityTypes.HIGH
-                                            ? "bg-red-500"
-                                            : todo.priority ===
-                                              PriorityTypes.MEDIUM
-                                            ? "bg-orange-400"
-                                            : todo.priority ===
-                                              PriorityTypes.LOW
-                                            ? "bg-yellow-300"
-                                            : ""
-                                    }`}
-                                ></span>
-                                <p>
-                                    {`${PriorityTypes[
-                                        todo.priority
-                                    ].toLowerCase()} priority`}
-                                </p>
-                            </>
-                        ) : null}
+                        <DateChip doWhen={todo?.doWhen} />
+                        <ChipSeparator
+                            doWhen={todo?.doWhen}
+                            priority={todo?.priority}
+                        />
+                        <PriorityChip priority={todo?.priority} />
                     </div>
                 </Checkbox>
 
@@ -133,7 +118,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                     {(onClose) => (
                         <>
                             <ModalHeader className="dark flex flex-col gap-1">
-                                Add an Item
+                                Edit Item
                             </ModalHeader>
                             <ModalBody>
                                 <EditToDoForm

@@ -122,7 +122,7 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
                     color="primary"
                     onPress={onClose}
                 >
-                    Add
+                    Update
                 </Button>
             </ModalFooter>
         </>

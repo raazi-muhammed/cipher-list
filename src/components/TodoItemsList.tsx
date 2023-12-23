@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { TodoItem } from "../types/todo";
 import TodoListItem from "./TodoListItem";
 import { DataContext } from "../context/DataContext";
+import ERROR_MESSAGES from "../utils/errorMessages";
 
 type TodoItemsListType = {
     showCompleted: boolean;
@@ -9,12 +9,14 @@ type TodoItemsListType = {
 };
 const TodoItemsList = ({ showCompleted, setRefresh }: TodoItemsListType) => {
     const { toDoList } = useContext(DataContext);
-    if (!toDoList) return <p>Error</p>;
+    if (!toDoList) return <p>{ERROR_MESSAGES.TODO_UNABLE_TO_FETCH}</p>;
 
     return (
         <section className="flex flex-col gap-4 mb-28">
             {toDoList?.length <= 0 ? (
-                <p className="opacity-50 mt-10 mx-auto">No items</p>
+                <p className="opacity-50 mt-10 mx-auto">
+                    {ERROR_MESSAGES.TODO_NO_ITEMS}
+                </p>
             ) : null}
             {toDoList.map((todo) => (
                 <>

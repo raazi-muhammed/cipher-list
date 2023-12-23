@@ -36,14 +36,14 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         };
         toDoList.push(toDoToAdd);
         setToDoList(toDoList);
-        toast.success("added");
+        toast.success("Todo Added");
     };
 
     const handleAddTodo = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
         if (!todoInput) {
-            toast.error("no value");
+            toast.error("No Value");
             return;
         }
 
