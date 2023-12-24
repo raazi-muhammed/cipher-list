@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.f21c2a5f.css",
-    "main.js": "/static/js/main.d97c08ab.js",
-    "index.html": "/index.html",
-    "main.f21c2a5f.css.map": "/static/css/main.f21c2a5f.css.map",
-    "main.d97c08ab.js.map": "/static/js/main.d97c08ab.js.map"
+    "main.css": "/cipher-list/static/css/main.65abb5ab.css",
+    "main.js": "/cipher-list/static/js/main.bd6fa1fe.js",
+    "index.html": "/cipher-list/index.html",
+    "main.65abb5ab.css.map": "/cipher-list/static/css/main.65abb5ab.css.map",
+    "main.bd6fa1fe.js.map": "/cipher-list/static/js/main.bd6fa1fe.js.map"
   },
   "entrypoints": [
-    "static/css/main.f21c2a5f.css",
-    "static/js/main.d97c08ab.js"
+    "static/css/main.65abb5ab.css",
+    "static/js/main.bd6fa1fe.js"
   ]
 }
