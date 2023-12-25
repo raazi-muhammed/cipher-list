@@ -6,6 +6,7 @@ import { Input, Button, ModalFooter } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { Select, SelectItem } from "@nextui-org/react";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
+import moment from "moment";
 
 type ToDoFormType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,22 +19,22 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
     const [priority, setPriority] = useState<PriorityTypes>(
         todo.priority ? todo.priority : PriorityTypes.NONE
     );
-    const { toDoList, setToDoList, saveToLocalStorage } =
-        useContext(DataContext);
+    const { toDoList, setToDoList } = useContext(DataContext);
 
-    if (!toDoList || !setToDoList || !saveToLocalStorage) {
+    if (!toDoList || !setToDoList) {
         return <p>{ERROR_MESSAGES.DATA_CONTEXT_LOADING}</p>;
     }
 
     const updatedToDo = (
         todoName: string,
         todoDate: string | null,
+        todoChecked: boolean,
         todoPriority: PriorityTypes
     ) => {
         const updatedToDo: TodoItem = {
             id: uuidv4(),
             name: todoName,
-            checked: false,
+            checked: todoChecked,
             doWhen: todoDate,
             priority: todoPriority,
             createdAt: todo.createdAt,
@@ -53,13 +54,11 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        if (name) updatedToDo(name, date, priority);
+        if (name) updatedToDo(name, date, todo.checked, priority);
         else toast.error(ERROR_MESSAGES.TODO_CANNOT_EDIT);
         setRefresh((curr) => !curr);
         setName("");
         setDate("");
-
-        saveToLocalStorage();
     };
     return (
         <>
@@ -72,6 +71,7 @@ const EditToDoForm = ({ setRefresh, onClose, todo }: ToDoFormType) => {
                 />
 
                 <Input
+                    min={moment().format("YYYY-MM-DDTHH:mm")}
                     type="datetime-local"
                     label="Date"
                     placeholder="eg: date"

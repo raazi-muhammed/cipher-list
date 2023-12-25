@@ -32,14 +32,12 @@ type TodoListItemType = {
 
 const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { toDoList, setToDoList, saveToLocalStorage } =
-        useContext(DataContext);
-    if (!toDoList || !setToDoList || !saveToLocalStorage)
+    const { toDoList, setToDoList } = useContext(DataContext);
+    if (!toDoList || !setToDoList)
         return <p>{ERROR_MESSAGES.DATA_CONTEXT_LOADING}</p>;
 
     const updateTodoList = (values: TodoItem[]) => {
         setToDoList(values);
-        saveToLocalStorage();
         setRefresh((curr) => !curr);
     };
 

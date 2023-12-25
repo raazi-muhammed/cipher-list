@@ -23,14 +23,9 @@ const Settings = ({
 }: SettingsType): JSX.Element => {
     const [sortBy, setSortBy] = useState<SortOptions>(SortOptions.CREATED_AT);
 
-    const { toDoList, setToDoList, saveToLocalStorage, clearLocalStorage } =
+    const { toDoList, setToDoList, clearLocalStorage } =
         useContext(DataContext);
-    if (
-        !toDoList ||
-        !setToDoList ||
-        !saveToLocalStorage ||
-        !clearLocalStorage
-    ) {
+    if (!toDoList || !setToDoList || !clearLocalStorage) {
         return <p>{ERROR_MESSAGES.DATA_CONTEXT_LOADING}</p>;
     }
 
@@ -63,7 +58,6 @@ const Settings = ({
         const sortedList = sortByField(sortBy);
 
         setToDoList(sortedList);
-        saveToLocalStorage();
         setRefresh((r) => !r);
     };
 

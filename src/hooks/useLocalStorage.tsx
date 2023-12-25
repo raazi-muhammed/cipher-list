@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CryptoJS from "crypto-js";
 
 function getSavedValues(key: string, initialData: any, password: string) {
@@ -38,6 +38,10 @@ export default function useLocalStorage<T>(
 
         window.localStorage.setItem(key, encryptedData);
     };
+
+    useEffect(() => {
+        saveToLocalStorage();
+    }, [data]);
 
     return [data, setData, saveToLocalStorage, clearLocalStorage];
 }

@@ -6,6 +6,7 @@ import { Input, Button, ModalFooter } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { Select, SelectItem } from "@nextui-org/react";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
+import moment from "moment";
 
 type ToDoFormType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -62,6 +63,7 @@ const AddToDoForm = ({ setRefresh, onClose }: ToDoFormType) => {
                 />
 
                 <Input
+                    min={moment().format("YYYY-MM-DDTHH:mm")}
                     type="datetime-local"
                     label="Date"
                     placeholder="eg: date"

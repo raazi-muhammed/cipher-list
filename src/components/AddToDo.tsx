@@ -23,9 +23,8 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [todoInput, setTodoInput] = useState<string>("");
 
-    const { toDoList, setToDoList, saveToLocalStorage } =
-        useContext(DataContext);
-    if (!toDoList || !setToDoList || !saveToLocalStorage) return <p>Error</p>;
+    const { toDoList, setToDoList } = useContext(DataContext);
+    if (!toDoList || !setToDoList) return <p>Error</p>;
 
     const addTodoItem = (todoName: string) => {
         const toDoToAdd: TodoItem = {
@@ -36,8 +35,9 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
             doWhen: null,
             createdAt: new Date().toString(),
         };
-        toDoList.push(toDoToAdd);
-        setToDoList(toDoList);
+        const updatedTodo = structuredClone(toDoList) as TodoItem[];
+        updatedTodo.push(toDoToAdd);
+        setToDoList(updatedTodo);
         toast.success(SUCCESS_MESSAGES.TODO_ADDED);
     };
 
@@ -53,7 +53,6 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
 
         setTodoInput("");
         setRefresh((curr) => !curr);
-        saveToLocalStorage();
     };
 
     return (
