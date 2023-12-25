@@ -45,7 +45,9 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
         e.preventDefault();
 
         if (!todoInput) {
-            toast.error(ERROR_MESSAGES.TODO_INPUT_NO_VALUE);
+            toast.error(ERROR_MESSAGES.TODO_INPUT_NO_VALUE, {
+                id: "to-do-error",
+            });
             return;
         }
 

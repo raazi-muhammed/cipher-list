@@ -79,6 +79,7 @@ const Settings = ({
                     color="danger"
                     variant="light"
                     className="w-full"
+                    aria-label="Clear all Todos"
                     onClick={handleClearAll}
                 >
                     <p className="w-full text-start">Clear All</p>
@@ -87,6 +88,7 @@ const Settings = ({
                     labelPlacement="outside"
                     value={sortBy}
                     onChange={handleChangeSortBy}
+                    aria-label="Select Sort By"
                     defaultSelectedKeys={[sortBy.toString()]}
                     label=""
                 >
@@ -119,7 +121,7 @@ const Settings = ({
                         size="sm"
                         onChange={(e) => setShowCompleted(e.target.checked)}
                         defaultSelected={showCompleted}
-                        aria-label="show completed"
+                        aria-label="Toggle Completed"
                     ></Switch>
                 </div>
             </PopoverContent>
