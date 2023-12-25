@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Checkbox } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
 import EditToDoForm from "./EditTodoForm";
+import { BsThreeDots } from "react-icons/bs";
 import {
     Dropdown,
     DropdownTrigger,
@@ -38,8 +39,8 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
 
     const updateTodoList = (values: TodoItem[]) => {
         setToDoList(values);
-        setRefresh((curr) => !curr);
         saveToLocalStorage();
+        setRefresh((curr) => !curr);
     };
 
     const handleDelete = () => {
@@ -86,13 +87,10 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                             isIconOnly
                             variant="flat"
                         >
-                            <img src="/icons/three-dot.svg" alt="" />
+                            <BsThreeDots size="1rem" />
                         </Button>
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Todo Options">
-                        <DropdownItem onClick={handleCheck} key="mark-done">
-                            Mark as done
-                        </DropdownItem>
                         <DropdownItem key="edit" onPress={onOpen}>
                             Edit
                         </DropdownItem>
@@ -102,7 +100,7 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
                             className="text-danger"
                             color="danger"
                         >
-                            Delete file
+                            Delete todo
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>

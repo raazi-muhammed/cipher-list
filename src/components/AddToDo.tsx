@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { PriorityTypes, TodoItem } from "../types/todo";
 import AddToDoForm from "./AddToDoForm";
 import { Input, Button } from "@nextui-org/react";
+import { IoIosAddCircle } from "react-icons/io";
 import {
     Modal,
     ModalContent,
@@ -70,6 +71,11 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
                         size="lg"
                         className="my-auto"
                         onPress={onOpen}
+                        endContent={
+                            <span>
+                                <IoIosAddCircle size="1.5rem" />
+                            </span>
+                        }
                     >
                         Add
                     </Button>

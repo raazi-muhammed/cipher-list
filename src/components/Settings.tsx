@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { TodoItem } from "../types/todo";
 import { SortOptions } from "../types/viewTypes";
 import { ERROR_MESSAGES } from "../utils/messages";
+import { BsThreeDots } from "react-icons/bs";
 
 type SettingsType = {
     showCompleted: boolean;
@@ -76,7 +77,7 @@ const Settings = ({
                     isIconOnly
                     variant="flat"
                 >
-                    <img src="/icons/three-dot.svg" alt="" />
+                    <BsThreeDots size="1rem" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="p-2">
