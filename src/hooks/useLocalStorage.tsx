@@ -41,6 +41,7 @@ export default function useLocalStorage<T>(
 
     useEffect(() => {
         saveToLocalStorage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     return [data, setData, saveToLocalStorage, clearLocalStorage];
