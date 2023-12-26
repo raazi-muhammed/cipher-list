@@ -30,7 +30,7 @@ type TodoListItemType = {
     setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
+const TodoItemCard = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { toDoList, setToDoList } = useContext(DataContext);
     if (!toDoList || !setToDoList)
@@ -130,4 +130,4 @@ const TodoListItem = ({ todo, setRefresh }: TodoListItemType): JSX.Element => {
     );
 };
 
-export default TodoListItem;
+export default TodoItemCard;

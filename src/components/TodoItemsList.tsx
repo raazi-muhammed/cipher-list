@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import TodoListItem from "./TodoListItem";
+import TodoItemCard from "./TodoItemCard";
 import { DataContext } from "../context/DataContext";
 import { ERROR_MESSAGES } from "../utils/messages";
 
@@ -21,7 +21,7 @@ const TodoItemsList = ({ showCompleted, setRefresh }: TodoItemsListType) => {
             {toDoList.map((todo) => (
                 <Fragment key={todo.id}>
                     {showCompleted ? (
-                        <TodoListItem
+                        <TodoItemCard
                             setRefresh={setRefresh}
                             key={todo.id}
                             todo={todo}
@@ -29,7 +29,7 @@ const TodoItemsList = ({ showCompleted, setRefresh }: TodoItemsListType) => {
                     ) : (
                         <>
                             {!todo.checked ? (
-                                <TodoListItem
+                                <TodoItemCard
                                     setRefresh={setRefresh}
                                     key={todo.id}
                                     todo={todo}
