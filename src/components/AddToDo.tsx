@@ -35,7 +35,7 @@ const AddToDo = ({ setRefresh }: AddToDoType) => {
             doWhen: null,
             createdAt: new Date().toString(),
         };
-        const updatedTodo = structuredClone(toDoList) as TodoItem[];
+        const updatedTodo = JSON.parse(JSON.stringify(toDoList)) as TodoItem[];
         updatedTodo.push(toDoToAdd);
         setToDoList(updatedTodo);
         toast.success(SUCCESS_MESSAGES.TODO_ADDED);

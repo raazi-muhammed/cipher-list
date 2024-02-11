@@ -3,15 +3,17 @@ import user from "@testing-library/user-event";
 import AddToDo from "../components/AddToDo";
 import { DataProvider } from "../context/DataContext";
 import { useState } from "react";
+import TodoItemsList from "../components/TodoItemsList";
 
 describe("Adding Todo", () => {
     const [refresh, setRefresh] = renderHook(() => useState<boolean>(false))
         .result.current;
 
-    test("Should show a toaster", async () => {
+    test("Add todo", async () => {
         render(
             <DataProvider>
                 <AddToDo setRefresh={setRefresh} />
+                <TodoItemsList showCompleted={false} setRefresh={setRefresh} />
             </DataProvider>
         );
 
@@ -22,7 +24,7 @@ describe("Adding Todo", () => {
         await user.type(inputBox, "Drink Water{enter}");
         expect(inputBox).toHaveValue("");
 
-        //const addButton = screen.getByRole("button", { name: "Add" });
-        //await user.click(addButton);
+        const todoItem = screen.getByText("Drink Water");
+        expect(todoItem).toBeInTheDocument();
     });
 });
